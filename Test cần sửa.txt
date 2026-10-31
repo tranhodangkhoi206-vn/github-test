@@ -1,0 +1,184 @@
+Test_QuanlynganhhocDAL.cs
+using StudentManagment.DAL;
+using StudentManagment.DTO;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data;
+
+[TestClass]
+public class Test_QuanlynganhhocDAL
+{
+    private readonly QuanlynganhhocDAL dal = new QuanlynganhhocDAL(new NullLoggerFactory());
+    [TestCleanup]
+    public void Cleanup()
+    {
+        dal.XoaThongTinNganhTheoMaNganh("CK");
+    }
+
+    [TestMethod]
+    public void ThemNganhMoi_VoiNganhHopLe_TraVeDataTable()
+    {
+        var nganh = new NganhhocDTO
+        {
+            Manganh = "CK",
+            Tennganh = "Cơ khí",
+            Khoaquanly = "Công nghệ và Kỹ thuật"
+        };
+
+        var result = dal.ThemNganhMoi(nganh);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void SuaThongTinNganhTheoMaNganh_VoiNganhHopLe_TraVeDataTable()
+    {
+        var nganh = new NganhhocDTO
+        {
+            Manganh = "CK",
+            Tennganh = "Cong Nghe Thong Tin Cap Cao",
+            Khoaquanly = "Khoa Kinh tế biển"
+        };
+
+        var result = dal.SuaThongTinNganhTheoMaNganh(nganh);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void XoaThongTinNganhTheoMaNganh_VoiMaNganhHopLe_TraVeDataTable()
+    {
+        var result = dal.XoaThongTinNganhTheoMaNganh("CK");
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+}
+Test_QuanlymonhocDAL.cs
+using StudentManagment.DAL;
+using StudentManagment.DTO;
+using Microsoft.Extensions.Logging.Abstractions;
+using System.Data;
+
+[TestClass]
+public class Test_QuanlymonhocDAL
+{
+    private readonly QuanlymonhocDAL dal = new QuanlymonhocDAL(new NullLoggerFactory());
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        dal.XoaThongTinMonHocTheoMaMon("MH100");
+    }
+    [TestMethod]
+    public void ThemMonHocMoi_VoiMonHocHopLe_TraVeDataTable()
+    {
+        var monHoc = new MonhocDTO
+        {
+            Mamon = "MH100",
+            Tenmon = "Lap Trinh C#",
+            Manganh = "CNTT",
+            Sotietlythuyet = 30,
+            Sotietthuchanh = 15,
+            Giangvien = "Nguyen Van A",
+            Tinhtrang = "Dang day"
+        };
+
+        var result = dal.ThemMonHocMoi(monHoc);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void SuaThongTinMonHocTheoMaMon_VoiMonHocHopLe_TraVeDataTable()
+    {
+        var monHoc = new MonhocDTO
+        {
+            Mamon = "MH100",
+            Tenmon = "Lap Trinh C# Nang Cao",
+            Manganh = "CNTT",
+            Sotietlythuyet = 45,
+            Sotietthuchanh = 15,
+            Giangvien = "Nguyen Van B",
+            Tinhtrang = "Dang day"
+        };
+
+        var result = dal.SuaThongTinMonHocTheoMaMon(monHoc);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void XoaThongTinMonHocTheoMaMon_VoiMaMonHopLe_TraVeDataTable()
+    {
+        var result = dal.XoaThongTinMonHocTheoMaMon("MH100");
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+}
+using StudentManagment.DAL;
+using StudentManagment.DTO;
+using Microsoft.Extensions.Logging.Abstractions;
+using System.Data;
+
+[TestClass]
+public class Test_QuanlydiemDAL
+{
+    private QuanlydiemDAL dal = new QuanlydiemDAL(new NullLoggerFactory());
+    [TestCleanup]
+    public void Cleanup()
+    {
+        dal.XoaThongTinDiemTheoMaSinhVienVaMaMon("SV010", "MH010");
+    }
+    [TestMethod]
+    public void ThemDiemMoi_VoiDiemHopLe_TraVeDataTable()
+    {
+        var diem = new DiemDTO
+        {
+            Masinhvien = "SV010",
+            Mamon = "MH010",
+            Diemchuyencan = 8,
+            Diemgiuaky = 7,
+            Diemcuoiky = 9,
+            Diemtong = 8.5
+        };
+
+        var result = dal.ThemDiemMoi(diem);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void SuaThongTinDiemTheoMaSinhVienVaMaMon_VoiDiemHopLe_TraVeDataTable()
+    {
+        var diem = new DiemDTO
+        {
+            Masinhvien = "SV010",
+            Mamon = "MH010",
+            Diemchuyencan = 9.0,
+            Diemgiuaky = 9.0,
+            Diemcuoiky = 9.0,
+            Diemtong =9.0 
+        };
+
+        var result = dal.SuaThongTinDiemTheoMaSinhVienVaMaMon(diem);
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+
+    [TestMethod]
+    public void XoaThongTinDiemTheoMaSinhVienVaMaMon_VoiMaHopLe_TraVeDataTable()
+    {
+        var result = dal.XoaThongTinDiemTheoMaSinhVienVaMaMon("SV010", "MH010");
+
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOfType(result, typeof(DataTable));
+    }
+}
